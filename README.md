@@ -15,5 +15,5 @@ Machine Learning Utilized
 sklearn - RandomForestClassifier; DecisionTreeClassifier
 
 Hosting Application
-AWS
+Heroku
 
