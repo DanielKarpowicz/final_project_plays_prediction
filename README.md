@@ -12,7 +12,7 @@ https://www.kaggle.com/maxhorowitz/nflplaybyplay2009to2016
 https://github.com/ryurko/nflscrapR-data
 
 Machine Learning Utilized
-sklearn - RandomForestClassifier
+sklearn - RandomForestClassifier; DecisionTreeClassifier
 
 Hosting Application
 AWS
