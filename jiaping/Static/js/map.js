@@ -62,13 +62,15 @@ function teamProcess(teams, layer) {
         });
          
         var marker = L.marker([lat, lon], {icon: icon }).addTo(myMap);
-        marker.bindPopup(`<h3>Club: ${club}<br>
+        marker.bindPopup(`<h2>${club}</h2><hr>
+        <h3>
         Head Coach: ${head_coach}<br>
         Confercence: ${conference}<br>
         Division: ${division}<br>
         City: ${city}<br>
         Statium: ${stadium}<br>
-        Capacity: ${capacity}</h3>`).addTo(layer);
+        Capacity: ${capacity}
+        </h3>`).addTo(layer);
     });
 
 };

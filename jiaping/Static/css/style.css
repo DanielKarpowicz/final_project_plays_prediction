@@ -8,5 +8,9 @@ body {
 #map,
 body,
 html {
-  height: 100%;
+  height: 95%;
+}
+
+.inputs {
+  padding-bottom: 2em;
 }
