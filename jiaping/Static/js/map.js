@@ -61,7 +61,7 @@ function teamProcess(teams, layer) {
             iconSize: [30, 30]
         });
          
-        var marker = L.marker([lat, -lon], {icon: icon }).addTo(myMap);
+        var marker = L.marker([lat, lon], {icon: icon }).addTo(myMap);
         marker.bindPopup(`<h3>Club: ${club}<br>
         Head Coach: ${head_coach}<br>
         Confercence: ${conference}<br>
