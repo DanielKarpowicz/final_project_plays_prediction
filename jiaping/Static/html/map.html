@@ -18,18 +18,23 @@
 
 <body>
 
-  <!-- The div that holds our map -->
-  <div id="map"></div>
+
+    <!-- The div that holds our map -->
+    <div id="map"></div>
 
   <!-- The div that holds our buttons -->
+  <div class='box'>
   <div class="inputs" id="conferences">
+    <br><a style="font-weight: bold;">Conference</a><br><br>
     <input type="checkbox" class="conference" name="American Football Conference" value="American Football Conference" checked="true">
     <label for="American Football Conference">American Football Conference</label>
+    <br>
     <input type="checkbox" class="conference" name="National Football Conference" value="National Football Conference" checked="true">
     <label for="National Football Conference">National Football Conference</label>
   </div>
-  
+
   <div class="inputs" id="divisions">
+    <br><a style="font-weight: bold;">Division</a><br><br>
     <input type="checkbox" class="division" name="East" value="East" checked="true">
     <label for="East">East</label>
     <input type="checkbox" class="division" value="North" checked="true">
@@ -39,6 +44,9 @@
     <input type="checkbox" class="division" value="West" checked="true">
     <label for="West">West</label>
   </div>
+  </div>
+
+  
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="

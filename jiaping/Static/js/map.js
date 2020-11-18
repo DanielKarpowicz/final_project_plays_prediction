@@ -1,7 +1,6 @@
 
 // Store our API endpoint inside queryUrl
-var queryUrl = 'https://raw.githubusercontent.com/DanielKarpowicz/final_project_plays_prediction/jiaping/jiaping/Resources/team_info.json';
-var queryUrl2 = 'https://raw.githubusercontent.com/DanielKarpowicz/final_project_plays_prediction/jiaping/jiaping/Resources/team_info.geojson'
+var queryUrl2 = 'https://raw.githubusercontent.com/DanielKarpowicz/final_project_plays_prediction/jiaping/jiaping/Resources/team_info.geojson';
 var myMap = L.map("map", {
     center: [35.52, -100.67],
     zoom: 4
@@ -17,33 +16,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?acce
 }).addTo(myMap);
 
 
-// var outdoors = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-//     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-//     maxZoom: 18,
-//     id: "outdoors-v9",
-//     accessToken: API_KEY
-// });
-
-// // create a map view
-// var baseMaps = {
-//     "Grayscale": grayscale,
-//     "Outdoors": outdoors
-// };
-
-// var ACFlayer = L.layerGroup();
-// var NCFlayer = L.layerGroup();
-
-// var overlayMaps = {
-//     "ACF": ACFlayer,
-//     "NCF": NCFlayer
-// };
-
-// var myMap = L.map("map", {
-//     center: [45.52, -122.67],
-//     zoom: 4,
-//     layers: [grayscale,ACFlayer,NCFlayer]
-// });
-
+// add conference and division filtration layers 
 
 let checkboxStates
 
@@ -101,7 +74,6 @@ d3.json(queryUrl2).then(function (teams) {
             geojsonLayer.addData(teams)
         }
     }
-
 
     /****** INIT ******/
     updateCheckboxStates()
