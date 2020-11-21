@@ -93,9 +93,59 @@
             font-weight:700;
             margin-left: -20px;
           }
+          #displayAppliedFilters {
+            margin : 20px 20px 0 20px;
+            padding : 10px;
+          }
+
+          #displayAppliedFilters span {
+            padding : 10px;
+            border : 1px solid black;
+            font-weight : bold;
+            margin : 5px;
+          }
+
+          .card-body {
+            text-align : center;
+          }
+
+          .card {
+            padding : 20px;
+            height : 350px;
+          }
+
+          .card .row {
+            align-items : center;
+            height : 300px;
+          }
+
+          .card-body {
+            color : green;
+          }
+
+          #prediction--image {
+            padding: 20px;
+          }
+
+          #prediction--play_type {
+            font-size: 3.0rem;
+            font-weight : 700;
+          }
+
+          #prediction--play_frequency {
+            font-size : 3.5rem;
+            font-weight : 900;
+          }
+
           @media (min-width: 768px) {
             .bd-placeholder-img-lg {
               font-size: 3.5rem;
+            }
+          }
+
+          @media (max-width: 767px) {
+            #prediction--image {
+              display : none;
             }
           }
         </style>
@@ -114,6 +164,9 @@
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Map <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="#">Interactive Chart</a>
@@ -189,7 +242,7 @@
                     <option value="SF">San Francisco 49ers</option>
                     <option value="TB">Tampa Bay Buccaneers</option>
                     <option value="TEN">Tennessee Titans</option>
-                    <option value="WAS">Washington Redskins</option>
+                    <option value="WAS">Washington Football Team</option>
                   </select>
                 </div>
                 <button id="expand-filters" class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="nfl-filters situational-filters">Filters</button>
@@ -299,21 +352,42 @@
                 </div>  
               </div>
               <div class="col-lg-9 col-md-6 col-sm-12">
+                <div id="displayAppliedFilters"></div>
                 <div class="row">
                   <div class="col-lg-7 col-md-12">
+                    <div id="bar-title-block"></div>
                     <div id="bar"></div>
                   </div>
                   <div class="col-lg-5 col-md-12">
                     <div id="radar">
-                      <div class="holder" style="margin: 60px 20px 0 -40px; width: 600px;">
+                      <div class="holder" style="margin: 60px 20px 30px 0; width: 100% ;">
                         <canvas id="myChart"></canvas>
+                      </div>
                     </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-7 col-md-12">
+                    <div id="prediction" class="card mb-3" style="max-width: 100%;">
+                      <div class="row no-gutters">
+                        <div id="prediction--image" class="col-md-4">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h3 id="prediction--play_type" class="card-title"></h3>
+                            <h1 id="prediction--play_frequency" class="card-text"></h1>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                  <div class="col-lg-5 col-md-12">
+                    <div id="sampleSize"></div>
                   </div>
                 </div>
               </div>
             </div>
-        </div>
+          </div>  
         <script src= 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'> </script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../js/bootstrap.bundle.min.js"></script>
@@ -332,7 +406,7 @@
               label: "NFL",
               backgroundColor: "transparent",
               borderColor: [
-                      'rgba(255,99,132,1)',
+                      'navy',
                   ],
                   boderWidth:3
               }
@@ -361,7 +435,7 @@
                   label: label1,
                   backgroundColor: "transparent",
                   borderColor: [
-                          'rgba(255,99,132,1)',
+                          'navy',
                       ],
                       boderWidth:3
                   },
@@ -369,7 +443,7 @@
                   label: label2,
                   backgroundColor: "transparent",
                   borderColor: [
-                          'navy',
+                          'rgb(204,204,204)',
                       ],
                       boderWidth:3
                   }    
@@ -394,7 +468,7 @@
                   label: label2,
                   backgroundColor: "transparent",
                   borderColor: [
-                          'rgba(255,99,132,1)',
+                          'navy',
                       ],
                       boderWidth:3
                   }
