@@ -11,12 +11,20 @@ function init() {
     // Create the bar chart
     var trace1 = {
         x : full_play_type,
-        y : full_play_count,
+        y : full_play_frequency,
         type : 'bar',
+        marker : {
+            color : 'navy',
+            opacity : 0.9
+        }
     };
 
     var data = [trace1];
-    Plotly.newPlot("bar",data);
+
+    var layout = {
+        title : 'Play Selection: NFL'
+    }
+    Plotly.newPlot("bar",data, layout);
 
 }
 
@@ -32,10 +40,11 @@ function optionChanged() {
     var quarterFilter = d3.select("#quarter-filter label.active input")._groups[0][0].getAttribute("id");
     var outcomeFilter = d3.select("#outcome-filter label.active input")._groups[0][0].getAttribute("id");
     var distanceFilter = d3.select("#distance-filter label.active input")._groups[0][0].getAttribute("id");
-    
+    var displayAppliedFilters = d3.selectAll("#displayAppliedFilters");
     // read in data
     d3.tsv("https://gist.githubusercontent.com/bevansr/7515c1ecb516dffb2e8124d17adb8f09/raw/2709cc446803a04d297a3d0767972978fc85b85c/nflteams.tsv", function(nflData) {
-
+        displayAppliedFilters.html("");
+        var teamLogo = false;
         // parse play type frequency counts
         nflData.forEach(function(data) {
             data.count = +data.count;
@@ -54,22 +63,29 @@ function optionChanged() {
             d3.selectAll("#nfl-filters .btn").classed("disabled", true);
             // Filter to team selected
             filteredData = filteredData.filter(i => i.posteam === teamSelected);
+            teamLogo = true;
             }
 
         if (downFilter != "allD") {
-                console.log(`Applying down filter to ${downFilter}`);
-                // filter team data
-                filteredData = filteredData.filter(i => i.down === downFilter);
-                // filter nfl comparison data
-                nflData = nflData.filter(i => i.down === downFilter);
+            console.log(`Applying down filter to ${downFilter}`);
+            // filter team data
+            filteredData = filteredData.filter(i => i.down === downFilter);
+            // filter nfl comparison data
+            nflData = nflData.filter(i => i.down === downFilter);
+
+            displayAppliedFilters.append("span")
+                .text(`Down: ${downFilter}`);
         }
     
         if (quarterFilter != "allQ") {
-                console.log(`Applying quarter filter to ${quarterFilter}`);
-                // filter team data
-                filteredData = filteredData.filter(i => i.qtr === quarterFilter);
-                // filter nfl comparison data
-                nflData = nflData.filter(i => i.qtr === quarterFilter);
+            console.log(`Applying quarter filter to ${quarterFilter}`);
+            // filter team data
+            filteredData = filteredData.filter(i => i.qtr === quarterFilter);
+            // filter nfl comparison data
+            nflData = nflData.filter(i => i.qtr === quarterFilter);
+
+            displayAppliedFilters.append("span")
+                .text(`Qtr: ${quarterFilter}`);
         }
     
         if (outcomeFilter != "all-outcomes") {
@@ -78,6 +94,8 @@ function optionChanged() {
             filteredData = filteredData.filter(i => i.score_differential === outcomeFilter);
             // filter nfl comparison data
             nflData = nflData.filter(i => i.score_differential === outcomeFilter);
+            displayAppliedFilters.append("span")
+                .text(`Outcome: ${outcomeFilter}`);
         }
     
         if (distanceFilter != "all-distance") {
@@ -86,6 +104,8 @@ function optionChanged() {
             filteredData = filteredData.filter(i => i.ydstogo === distanceFilter);
             // filter nfl comparison data
             nflData = nflData.filter(i => i.ydstogo === distanceFilter);
+            displayAppliedFilters.append("span")
+                .text(`Distance: ${distanceFilter}`);
         }
 
         // prepare data for plotting
@@ -136,11 +156,12 @@ function optionChanged() {
             y : full_play_frequency,
             type : 'bar',
             name : teamSelected,
-            bar : {
+            marker : {
                 color : 'navy',
+                opacity : 0.9
             }
         };
-
+        var layout;
         var data2;
         // if team conference or division filters are applied include comparison
         if (teamSelected != 'NFL') {
@@ -149,19 +170,26 @@ function optionChanged() {
                 y : nfl_play_type_frequency,
                 type : 'bar',
                 name : 'NFL',
-                bar : {
-                    color : 'red',
+                marker : {
+                    color : 'rgb(204,204,204)',
+                    opacity : 0.7
                 }
             };
             
             data2 = [trace1, trace2];
+            layout = {
+                title : `Play Selection: ${teamSelected} vs. NFL`
+            }
         }
         // no team conference or division filters are selected don't include comparison
         else {
             data2 = [trace1];
+            layout = {
+                title : 'Play Selection: NFL'
+            }
         }
         // create bar chart
-        Plotly.newPlot("bar",data2);
+        Plotly.newPlot("bar",data2, layout);
 
         // run function to update radar chart
         updateRadar(full_play_frequency, nfl_play_type_frequency, full_play_types, teamSelected, "NFL");
@@ -180,8 +208,13 @@ function applyFilters() {
     var quarterFilter = d3.select("#quarter-filter label.active input")._groups[0][0].getAttribute("id");
     var outcomeFilter = d3.select("#outcome-filter label.active input")._groups[0][0].getAttribute("id");
     var distanceFilter = d3.select("#distance-filter label.active input")._groups[0][0].getAttribute("id");
+    var displayAppliedFilters = d3.selectAll("#displayAppliedFilters");
+
     // read in data
     d3.tsv("https://gist.githubusercontent.com/bevansr/7515c1ecb516dffb2e8124d17adb8f09/raw/2709cc446803a04d297a3d0767972978fc85b85c/nflteams.tsv", function(nflData) {
+        var teamLogo = false;
+        displayAppliedFilters.html("");
+        
         // parse play type counts
         nflData.forEach(function(data) {
             data.count = +data.count;
@@ -198,6 +231,9 @@ function applyFilters() {
                 filteredData = filteredData.filter(i => i.conference === conferenceFilter);
                 // Update team selected label for plots
                 teamSelected = d3.selectAll("#nfl-filters label.active input")._groups[0][0].getAttribute('id').toUpperCase();
+
+                displayAppliedFilters.append("span")
+                    .text(`Conference: ${conferenceFilter.toUpperCase()}`);
             }
             // check division filter
             if (divisionFilter != "all-div") {
@@ -215,6 +251,9 @@ function applyFilters() {
                 // Update team selected label for plots    
                 teamSelected = d3.selectAll("#nfl-filters label.active input")._groups[0][1].getAttribute('id').toUpperCase();
                 }
+
+                displayAppliedFilters.append("span")
+                    .text(`Division: ${divisionFilter.toUpperCase()}`);
             }
 
         }
@@ -224,6 +263,7 @@ function applyFilters() {
             d3.selectAll("#nfl-filters .btn").classed("disabled", true);
             // Filter to team selected
             filteredData = filteredData.filter(i => i.posteam === teamSelected);
+            teamLogo = true;
         }
 
         console.log('logging nfl data');
@@ -237,14 +277,18 @@ function applyFilters() {
                 filteredData = filteredData.filter(i => i.down === downFilter);
                 // filter nfl data
                 nflData = nflData.filter(i => i.down === downFilter);
+                displayAppliedFilters.append("span")
+                    .text(`Down: ${downFilter}`);
         }
     
         if (quarterFilter != "allQ") {
-                console.log(`Applying quarter filter to ${quarterFilter}`);
-                // filter partial data
-                filteredData = filteredData.filter(i => i.qtr === quarterFilter);
-                // filter nfl data
-                nflData = nflData.filter(i => i.qtr === quarterFilter);
+            console.log(`Applying quarter filter to ${quarterFilter}`);
+            // filter partial data
+            filteredData = filteredData.filter(i => i.qtr === quarterFilter);
+            // filter nfl data
+            nflData = nflData.filter(i => i.qtr === quarterFilter);
+            displayAppliedFilters.append("span")
+                .text(`Qtr: ${quarterFilter}`);
         }
     
         if (outcomeFilter != "all-outcomes") {
@@ -253,6 +297,8 @@ function applyFilters() {
             filteredData = filteredData.filter(i => i.score_differential === outcomeFilter);
             // filter nfl data
             nflData = nflData.filter(i => i.score_differential === outcomeFilter);
+            displayAppliedFilters.append("span")
+                .text(`Outcome: ${outcomeFilter}`);
         }
     
         if (distanceFilter != "all-distance") {
@@ -261,6 +307,8 @@ function applyFilters() {
             filteredData = filteredData.filter(i => i.ydstogo === distanceFilter);
             // filter nfl data
             nflData = nflData.filter(i => i.ydstogo === distanceFilter);
+            displayAppliedFilters.append("span")
+                .text(`Distance: ${distanceFilter}`);
         }
 
         // prepare data for plotting
@@ -310,12 +358,14 @@ function applyFilters() {
             y : full_play_frequency,
             type : 'bar',
             name : teamSelected,
-            bar : {
+            marker : {
                 color : 'navy',
+                opacity : 0.9
             }
         };
 
         var data2;
+        var layout;
         // if team conference or divison filters are applied include comparison
         if (teamSelected != 'NFL') {
             var trace2 = {
@@ -323,19 +373,26 @@ function applyFilters() {
                 y : nfl_play_type_frequency,
                 type : 'bar',
                 name : 'NFL',
-                bar : {
-                    color : 'red',
+                marker : {
+                    color : 'rgb(204,204,204)',
+                    opacity : 0.7
                 }
             };
             
             data2 = [trace1, trace2];
+            layout = {
+                title : `Play Selection: ${teamSelected} vs. NFL`
+            }
         }
         // if no team conference or division filters are applied don't include comparison
         else {
             data2 = [trace1];
+            layout = {
+                title : 'Play Selection: NFL'
+            }
         }
         // create bar chart
-        Plotly.newPlot("bar",data2);
+        Plotly.newPlot("bar",data2, layout);
         // function to update radar chart
         updateRadar(full_play_frequency, nfl_play_type_frequency, full_play_types, teamSelected, "NFL");
 

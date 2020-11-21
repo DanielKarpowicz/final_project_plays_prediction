@@ -93,6 +93,22 @@
             font-weight:700;
             margin-left: -20px;
           }
+          #displayAppliedFilters {
+            margin : 20px;
+            padding : 10px;
+          }
+
+          #displayAppliedFilters span {
+            padding : 10px;
+            border : 1px solid black;
+            font-weight : bold;
+            margin : 5px;
+          }
+
+          .card-body {
+            text-align : center;
+          }
+
           @media (min-width: 768px) {
             .bd-placeholder-img-lg {
               font-size: 3.5rem;
@@ -299,21 +315,69 @@
                 </div>  
               </div>
               <div class="col-lg-9 col-md-6 col-sm-12">
+                <div id="displayAppliedFilters"></div>
                 <div class="row">
                   <div class="col-lg-7 col-md-12">
+                    <div id="bar-title-block"></div>
                     <div id="bar"></div>
                   </div>
                   <div class="col-lg-5 col-md-12">
                     <div id="radar">
-                      <div class="holder" style="margin: 60px 20px 0 -40px; width: 600px;">
+                      <div class="holder" style="margin: 60px 20px 30px 0; width: 100% ;">
                         <canvas id="myChart"></canvas>
+                      </div>
                     </div>
+                  </div>
+                </div>
+                <div class="row" style="display:none;">
+                  <div class="col-lg-7 col-md-12" style="text-align : center;">
+                    <h1>Play Prediction</h1>
+                  </div>
+                  <div class="col-lg-5 col-md-12" style="text-align : center;">
+                    <h1>Sample Size</h1>
+                  </div>
+                  <div class="col-lg-7 col-md-12">
+                    <div id="prediction1" class="card mb-3" style="max-width: 100%;">
+                      <div class="row no-gutters">
+                        <div id="prediction1--image" class="col-md-3">
+                          <img src="https://content.sportslogos.net/logos/7/1007/full/dwuw5lojnwsj12vfe0hfa6z47.gif" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-9">
+                          <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                  <div class="col-lg-5 col-md-12">
+                    <div id="Sample1"></div>
+                  </div>
+                  <div class="col-lg-7 col-md-12">
+                    <div id="prediction2" class="card mb-3" style="max-width: 100%;">
+                      <div class="row no-gutters">
+                        <div id="prediction2--image" class="col-md-3">
+                          <img src="https://content.sportslogos.net/logos/7/1007/full/dwuw5lojnwsj12vfe0hfa6z47.gif" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-9">
+                          <div class="card-body">
+                            <h3 id="prclass="card-title">Card title</h3>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="col-lg-5 col-md-12">
+                    <div id="Sample2"></div>
                   </div>
                 </div>
               </div>
             </div>
-        </div>
+          </div>  
         <script src= 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'> </script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../js/bootstrap.bundle.min.js"></script>
@@ -332,7 +396,7 @@
               label: "NFL",
               backgroundColor: "transparent",
               borderColor: [
-                      'rgba(255,99,132,1)',
+                      'navy',
                   ],
                   boderWidth:3
               }
@@ -361,7 +425,7 @@
                   label: label1,
                   backgroundColor: "transparent",
                   borderColor: [
-                          'rgba(255,99,132,1)',
+                          'navy',
                       ],
                       boderWidth:3
                   },
@@ -369,7 +433,7 @@
                   label: label2,
                   backgroundColor: "transparent",
                   borderColor: [
-                          'navy',
+                          'rgb(204,204,204)',
                       ],
                       boderWidth:3
                   }    
@@ -394,7 +458,7 @@
                   label: label2,
                   backgroundColor: "transparent",
                   borderColor: [
-                          'rgba(255,99,132,1)',
+                          'navy',
                       ],
                       boderWidth:3
                   }
