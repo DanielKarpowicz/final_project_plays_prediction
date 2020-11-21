@@ -94,7 +94,7 @@
             margin-left: -20px;
           }
           #displayAppliedFilters {
-            margin : 20px;
+            margin : 20px 20px 0 20px;
             padding : 10px;
           }
 
@@ -109,9 +109,43 @@
             text-align : center;
           }
 
+          .card {
+            padding : 20px;
+            height : 350px;
+          }
+
+          .card .row {
+            align-items : center;
+            height : 300px;
+          }
+
+          .card-body {
+            color : green;
+          }
+
+          #prediction--image {
+            padding: 20px;
+          }
+
+          #prediction--play_type {
+            font-size: 3.0rem;
+            font-weight : 700;
+          }
+
+          #prediction--play_frequency {
+            font-size : 3.5rem;
+            font-weight : 900;
+          }
+
           @media (min-width: 768px) {
             .bd-placeholder-img-lg {
               font-size: 3.5rem;
+            }
+          }
+
+          @media (max-width: 767px) {
+            #prediction--image {
+              display : none;
             }
           }
         </style>
@@ -130,6 +164,9 @@
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Map <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="#">Interactive Chart</a>
@@ -205,7 +242,7 @@
                     <option value="SF">San Francisco 49ers</option>
                     <option value="TB">Tampa Bay Buccaneers</option>
                     <option value="TEN">Tennessee Titans</option>
-                    <option value="WAS">Washington Redskins</option>
+                    <option value="WAS">Washington Football Team</option>
                   </select>
                 </div>
                 <button id="expand-filters" class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="nfl-filters situational-filters">Filters</button>
@@ -329,50 +366,23 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" style="display:none;">
-                  <div class="col-lg-7 col-md-12" style="text-align : center;">
-                    <h1>Play Prediction</h1>
-                  </div>
-                  <div class="col-lg-5 col-md-12" style="text-align : center;">
-                    <h1>Sample Size</h1>
-                  </div>
+                <div class="row">
                   <div class="col-lg-7 col-md-12">
-                    <div id="prediction1" class="card mb-3" style="max-width: 100%;">
+                    <div id="prediction" class="card mb-3" style="max-width: 100%;">
                       <div class="row no-gutters">
-                        <div id="prediction1--image" class="col-md-3">
-                          <img src="https://content.sportslogos.net/logos/7/1007/full/dwuw5lojnwsj12vfe0hfa6z47.gif" class="card-img" alt="...">
+                        <div id="prediction--image" class="col-md-4">
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                           <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <h3 id="prediction--play_type" class="card-title"></h3>
+                            <h1 id="prediction--play_frequency" class="card-text"></h1>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-lg-5 col-md-12">
-                    <div id="Sample1"></div>
-                  </div>
-                  <div class="col-lg-7 col-md-12">
-                    <div id="prediction2" class="card mb-3" style="max-width: 100%;">
-                      <div class="row no-gutters">
-                        <div id="prediction2--image" class="col-md-3">
-                          <img src="https://content.sportslogos.net/logos/7/1007/full/dwuw5lojnwsj12vfe0hfa6z47.gif" class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-9">
-                          <div class="card-body">
-                            <h3 id="prclass="card-title">Card title</h3>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> 
-                  <div class="col-lg-5 col-md-12">
-                    <div id="Sample2"></div>
+                    <div id="sampleSize"></div>
                   </div>
                 </div>
               </div>
